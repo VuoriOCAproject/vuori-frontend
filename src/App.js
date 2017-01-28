@@ -7,8 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <h1>{this.props.txt}</h1>
-        <Manage cam="cameron"/>
+        <Manage />
       </div>
     );
   }
