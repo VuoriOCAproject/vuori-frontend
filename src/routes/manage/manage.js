@@ -1,6 +1,6 @@
 import React from 'react';
-import Search from './components/search.js';
-import Display from './components/display.js';
+import Search from './components/search/search.js';
+import Display from './components/display/display.js';
 import axios from 'axios';
 
 class Manage extends React.Component {
