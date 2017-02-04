@@ -8,29 +8,32 @@ class Search extends React.Component {
 			this.state = {
 				input: '',
 				selectedTable: 'customer',
-				selectedColumn: ''
+				selectedColumn: 'All'
 			}
 
-		this.handleChange = this.handleChange.bind(this)
+		this.handleChange = this.handleChange.bind(this);
 		this.buildQuery = this.buildQuery.bind(this);
 		this.onTableSelected = this.onTableSelected.bind(this);
 		this.onColumnSelected = this.onColumnSelected.bind(this);
 	}
 
 	handleChange = ( e ) => {
+		console.log(e.target);
+
 	    this.setState({[e.target.name]: e.target.value})
 	}
 
 	buildQuery() {
-		if(this.state.selectedColumn == 'All') {
+		if(this.state.selectedColumn === 'All') {
 			this.props.onSearch(`select * from tests.${this.state.selectedTable}`);
 		} else {
-			this.props.onSearch(`select * from tests.${this.state.selectedTable} where ${this.state.selectedColumn} = ${this.state.input}`);
+			this.props.onSearch(`select * from tests.${this.state.selectedTable} where ${this.state.selectedColumn} = '${this.state.input}'`);
 		}
 	}
 	onTableSelected(e) {
 		this.setState({
-			selectedTable: e.target.value 
+			selectedTable: e.target.value,
+			selectedColumn: 'All'
 		})	
 	}
 	onColumnSelected(e) {
@@ -56,34 +59,14 @@ class Search extends React.Component {
 		
 		return (
 
-			<div className="Search">
-				Select a table: 
+			<div className="Search" style={{float: 'left'}}>
+				
 				<TableDropDown onTableSelected={this.onTableSelected} tables={this.props.schema.map(param => param.tableName)} />
-				Select a column:
-				<ColumnDropDown onColumnSelected={this.onColumnSelected} columns={columnValues} />=
+				
+				<ColumnDropDown onColumnSelected={this.onColumnSelected} columns={columnValues} />
 				<input name="input" value={this.state.value} onChange={this.handleChange} />
 				
-				<button>+Add</button>
-				<br />
-				
-				<ColumnDropDown onColumnSelected={this.onColumnSelected} columns={columnValues} />=
-				<input name="input" value={this.state.value} onChange={this.handleChange} />
-				
-				<button>+Add</button>
-				<br />
-				
-				<ColumnDropDown onColumnSelected={this.onColumnSelected} columns={columnValues} />=
-				<input name="input" value={this.state.value} onChange={this.handleChange} />
-				
-				<button>+Add</button>
-				<br />
-				
-				<ColumnDropDown onColumnSelected={this.onColumnSelected} columns={columnValues} />=
-				<input name="input" value={this.state.value} onChange={this.handleChange} />
-				
-				<br />
-
-				<button onClick={this.buildQuery}>Go!</button>
+				<button className="huge ui inverted red button" onClick={this.buildQuery}>Go!</button>
 			</div>
 		);
 	}

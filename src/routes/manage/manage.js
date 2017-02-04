@@ -31,7 +31,7 @@ class Manage extends React.Component {
 			})
 			.then((response) => {
 				this.setState({
-					results: response.data
+					results: response.data.data
 				})
 			});
 	}
@@ -39,8 +39,11 @@ class Manage extends React.Component {
 	render() {
 		return (
 			<div className="Manage">
+				<div className="ui input error">
 				<Search schema={this.state.schema} onSearch={this.search} />
+				</div>
 				<Display results={this.state.results} />
+				
 			</div>
 		);
 	}

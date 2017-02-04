@@ -6,6 +6,7 @@ class ColumnDropDown extends React.Component {
 		this.state = {
 			selectedColumn: ''
 		}
+		this.onColumnSelected = this.onColumnSelected.bind(this);
 	}
 
 	onColumnSelected(e) {
@@ -17,9 +18,9 @@ class ColumnDropDown extends React.Component {
 	}
 
 	render() {
-		//console.log("columns: " + this.props.columns);
+
 		return (	
-			<select name="selectedColumn" value={this.state.selectedColumn} onChange={this.onColumnSelected}>
+			<select className="ui selection dropdown error" name="selectedColumn" value={this.state.selectedColumn} onChange={this.onColumnSelected}>
 				<option>All</option>
 				{
 					this.props.columns.map((column, i) => (<option key={i} value={column}>{column}</option>))
