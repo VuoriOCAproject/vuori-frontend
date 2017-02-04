@@ -20,7 +20,7 @@ class TableDropDown extends React.Component {
 
 	render() {
 		return (
-				<select name="selectedTable" value={this.state.selectedTable} onChange={this.onTableSelected}>
+				<select className="ui selection dropdown error" name="selectedTable" value={this.state.selectedTable} onChange={this.onTableSelected}>
 					{
 						this
 							.props
