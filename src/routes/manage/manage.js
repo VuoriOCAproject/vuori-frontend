@@ -2,6 +2,10 @@ import React from 'react';
 import Search from './components/search/search.js';
 import Display from './components/display/display.js';
 import axios from 'axios';
+import csv from 'to-csv';
+import download from '../../lib/download';
+import { PageHeader } from 'react-bootstrap';
+
 
 class Manage extends React.Component {
 	constructor(props) {
@@ -10,19 +14,22 @@ class Manage extends React.Component {
 
 		this.state = {
 			schema: [],
-			results: []
+			results: [],
+			tableName: 'customer'
 		}
+		this.onTableSelected = this.onTableSelected.bind(this);
+		this.exportCsv = this.exportCsv.bind(this);
 	}
-
 	componentWillMount() {
 		axios
 			.get('http://localhost:3010/api/schema')
-			.then( response => {
+			.then(response => {
 				this.setState({
 					schema: response.data
 				})
 			});
 	}
+
 
 	search(sqlQuery) {
 		axios
@@ -36,14 +43,29 @@ class Manage extends React.Component {
 			});
 	}
 
+	exportCsv() {
+		var csvFile = csv(this.state.results);
+		download(csvFile, `${this.state.tableName}.csv`, 'text/csv');
+	}
+
+	onTableSelected(tableName) {
+		this.setState({
+			tableName
+		})
+	}
+
 	render() {
 		return (
+
 			<div className="Manage">
+			<div className="container-fluid">
+				<PageHeader style={{float: 'left'}}>Vuori Dashboard <small>The Rise. The Shine.</small></PageHeader>
 				<div className="ui input error">
-				<Search schema={this.state.schema} onSearch={this.search} />
+					<Search schema={this.state.schema} onSearch={this.search} onTableSelected={this.onTableSelected} />
 				</div>
-				<Display results={this.state.results} />
-				
+				<div className="ui horizontal divider"></div>
+					<Display results={this.state.results} onDownload={this.exportCsv}/>
+			</div>
 			</div>
 		);
 	}
