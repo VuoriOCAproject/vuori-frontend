@@ -20,7 +20,7 @@ class ColumnDropDown extends React.Component {
 	render() {
 
 		return (	
-			<select className="ui selection dropdown error" name="selectedColumn" value={this.state.selectedColumn} onChange={this.onColumnSelected}>
+			<select className="ui selection dropdown error SQLbuild" name="selectedColumn" value={this.state.selectedColumn} onChange={this.onColumnSelected}>
 				<option>All</option>
 				{
 					this.props.columns.map((column, i) => (<option key={i} value={column}>{column}</option>))
