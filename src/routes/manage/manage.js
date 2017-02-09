@@ -4,6 +4,7 @@ import Display from './components/display/display.js';
 import axios from 'axios';
 import csv from 'to-csv';
 import download from '../../lib/download';
+import { logout } from '../../AuthService.js';
 
 var ReactToastr = require('react-toastr');
 var {ToastContainer} = ReactToastr;
@@ -130,7 +131,9 @@ class Manage extends React.Component {
 				<ToastContainer ref="container"
 					toastMessageFactory={ToastMessageFactory}
 					className="toast-top-right" />
-				<header id="pageheader">Vuori <small>The Rise. The Shine.</small></header>
+				<header id="pageheader">Vuori <small>The Rise. The Shine.</small>
+					<button className="huge ui inverted red button" onClick={logout}>Log Out #TimHatesQueries</button>
+				</header>
 				<div className="ui input error" id="a">
 					<Search 
 						schema={this.state.schema} 

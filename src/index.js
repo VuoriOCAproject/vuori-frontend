@@ -2,31 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Login from './routes/login/Login';
-import { Router, Route, hashHistory } from 'react-router';
+import {
+  Router,
+  DefaultRoute,
+  Route,
+  hashHistory
+}
+from 'react-router';
 import auth from './AuthService';
 
 import axios from 'axios';
 
 
-axios.interceptors.request.use(function (request) {
-    if(auth.loggedIn()) {
-      request.headers.Authorization = 'JWT ' + auth.getToken();
-    }
+axios.interceptors.request.use(function(request) {
+  if (auth.loggedIn()) {
+    request.headers.Authorization = 'JWT ' + auth.getToken();
+  }
 
-    return request;
-  }, function (error) {
-    return Promise.reject(error);
-  });
+  return request;
+}, function(error) {
+  return Promise.reject(error);
+});
 
-axios.interceptors.response.use(function (response) {
-    if(response.statusCode === 401) {
-      hashHistory.push('/login');
-    }
+axios.interceptors.response.use(function(response) {
+  if (response.statusCode === 401) {
+    hashHistory.push('/login');
+  }
 
-    return response;
-  }, function (error) {
-    return Promise.reject(error);
-  });
+  return response;
+}, function(error) {
+  return Promise.reject(error);
+});
 
 function gatekeeper(nextState, replace) {
   if (!auth.loggedIn()) {
@@ -35,11 +41,10 @@ function gatekeeper(nextState, replace) {
     })
   }
 }
-
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/login" component={Login} />
-    <Route path="/app" component={App} onEnter={gatekeeper} />
+    <Route path="/login" component={Login}></Route>
+    <Route path="/" component={App} onEnter={gatekeeper}></Route>
   </Router>,
   document.getElementById('root')
 );
