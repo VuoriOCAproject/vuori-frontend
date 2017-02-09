@@ -31,7 +31,7 @@ class Login extends React.Component {
       auth
         .login(this.state.username, this.state.password)
         .then(() => {
-          this.props.router.replace('/app')
+          this.props.router.replace('/')
         })
         .catch(error => {
           this.setState({ error: true })
@@ -40,14 +40,43 @@ class Login extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label><input name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/></label>
-                <label><input name="password" placeholder="password" value={this.state.password} onChange={this.handleChange}/></label><br/>
-                <button type="submit">login</button>
-                {this.state.error && (
+            <div className="Login">
+            <div className="ui middle aligned center aligned grid">
+                <div className="column">
+                  <form onSubmit={this.handleSubmit} className="ui large form">
+                    <div className="ui stacked segment">
+                      <div className="field">
+                        <div className="ui left icon input">
+                          <input
+                            type="text"
+                            placeholder="Username"
+                            name="username"
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            ></input>
+                        </div>
+                      </div>
+                      <div className="field">
+                        <div className="ui left icon input"> 
+                          <input
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                          value={this.state.password}
+                          onChange={this.handleChange}
+                          ></input>
+                        </div>
+                      </div>
+                      <div type="submit" className="ui fluid large teal submit button">Login</div>
+                    </div>
+                    <div className="ui error message"></div>
+                    {this.state.error && (
                     <p>Bad login information</p>
                 )}
-            </form>
+                  </form>
+                </div>
+              </div>
+            </div>
         )
     }
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+import { hashHistory } from 'react-router';
 
 module.exports = {
     login(username, pass) {
@@ -31,7 +32,7 @@ module.exports = {
 
     logout() {
         delete localStorage.token
-        this.onChange(false)
+        hashHistory.push('/login')
     },
 
     loggedIn() {
