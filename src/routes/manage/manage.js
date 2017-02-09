@@ -132,7 +132,7 @@ class Manage extends React.Component {
 					toastMessageFactory={ToastMessageFactory}
 					className="toast-top-right" />
 				<header id="pageheader">Vuori <small>The Rise. The Shine.</small>
-					<button className="huge ui inverted red button" onClick={logout}>Log Out #TimHatesQueries</button>
+					<button id="logoutButton" className="huge ui inverted red button" onClick={logout}>Log Out #TimHatesQueries</button>
 				</header>
 				<div className="ui input error" id="a">
 					<Search 

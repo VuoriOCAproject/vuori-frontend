@@ -67,7 +67,7 @@ class Login extends React.Component {
                           ></input>
                         </div>
                       </div>
-                      <div type="submit" className="ui fluid large teal submit button">Login</div>
+                      <button type="submit" className="ui fluid large teal submit button">Login</button>
                     </div>
                     <div className="ui error message"></div>
                     {this.state.error && (
