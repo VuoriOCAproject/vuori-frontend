@@ -137,10 +137,11 @@ class Manage extends React.Component {
 						onSearch={this.search} 
 						onTableSelected={this.onTableSelected} 
 						onColumnSelected={this.onColumnSelected}
-						onInputChange={this.onInputChange} />
+						onInputChange={this.onInputChange}
+						onDownload={this.exportCsv} />
 				</div>
-				<div className="ui horizontal divider"></div>
-					<Display results={this.state.results} onDownload={this.exportCsv}/>
+				
+					<Display results={this.state.results} />
 			</div>
 		);
 	}

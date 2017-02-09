@@ -3,6 +3,8 @@ import TableDropDown from './components/tableDropDown.js';
 import ColumnDropDown from './components/columnDropDown.js';
 import DatePicker from 'react-datepicker';
 
+require('react-datepicker/dist/react-datepicker.css');
+
 
 
 class Search extends React.Component {
@@ -14,13 +16,16 @@ class Search extends React.Component {
 				selectedColumn: 'All',
 				sqlInput: '',
 				startDate: '',
-				endDate: ''
+				endDate: '',
+				SQLDate: ''
 			}
 		this.handleChange = this.handleChange.bind(this);
 		this.buildQuery = this.buildQuery.bind(this);
 		this.onTableSelected = this.onTableSelected.bind(this);
 		this.onColumnSelected = this.onColumnSelected.bind(this);
 		this.searchQuery = this.searchQuery.bind(this);
+		this.onStartDateSelected = this.onStartDateSelected.bind(this);
+		this.onEndDateSelected = this.onEndDateSelected.bind(this);
 	}
 
 	handleChange = ( e ) => {
@@ -32,15 +37,28 @@ class Search extends React.Component {
 	}
 
 	searchQuery() {
-		this.props.onSearch(this.state.sqlInput, 'query');
+		if(this.state.startDate && this.state.endDate) {
+			this.props.onSearch(`${this.state.sqlInput} where timestamp between '${this.state.startDate.toISOString()}' and '${this.state.endDate.toISOString()}'`, 'query');
+		} else {
+			this.props.onSearch(this.state.sqlInput, 'query');
+		}
 	}
 
 	buildQuery() {
-		if(this.state.selectedColumn === 'All') {
-			this.props.onSearch(`select * from tests.${this.state.selectedTable}`, 'build');
+		if(this.state.startDate && this.state.endDate) {
+			if(this.state.selectedColumn === 'All') {
+				this.props.onSearch(`select * from tests.${this.state.selectedTable} where timestamp between '${this.state.startDate.toISOString()}' and '${this.state.endDate.toISOString()}'`, 'build');
+			} else {
+				this.props.onSearch(`select * from tests.${this.state.selectedTable} where ${this.state.selectedColumn} = '${this.state.input}' and timestamp between '${this.state.startDate.toISOString()}' and '${this.state.endDate.toISOString()}'`, 'build');
+			}
+
 		} else {
-			this.props.onSearch(`select * from tests.${this.state.selectedTable} where ${this.state.selectedColumn} = '${this.state.input}'`, 'build');
-		}
+			if(this.state.selectedColumn === 'All') {
+				this.props.onSearch(`select * from tests.${this.state.selectedTable}`, 'build');
+			} else {
+				this.props.onSearch(`select * from tests.${this.state.selectedTable} where ${this.state.selectedColumn} = '${this.state.input}'`, 'build');
+			}
+		}	
 	}
 	onTableSelected(e) {
 		this.setState({
@@ -55,9 +73,22 @@ class Search extends React.Component {
 		})
 		this.props.onColumnSelected(e.target.value);
 	}
+	onStartDateSelected(date) {
+		this.setState({
+			startDate: date
+		})
+	}
+	onEndDateSelected(date) {
+		this.setState({
+			endDate: date.endOf('day')
+		})
+	}
 
 
 	render() {
+		console.log('the date is ' + this.state.startDate)
+		console.log('the date is ' + this.state.endDate)
+		console.log(JSON.stringify(this.props.schema[0]))
 
 		const columnValues =
 					this
@@ -91,8 +122,19 @@ class Search extends React.Component {
 					<button className="huge ui inverted red button" id="download" onClick={this.props.onDownload}>Download as CSV</button>
 				</div>
 				<div className="dateRange">
-					<DatePicker placeholderText="start date..." name="startDate" selected={this.state.startDate} onChange={this.handleChange} />
-					<DatePicker id="endDate" placeholderText="end date..." name="endDate" selected={this.state.endDate} onChange={this.handleChange} />
+					<DatePicker onChange={this.onStartDateSelected}
+								type="date"
+								placeholderText="start date..."
+								name="startDate"
+								selected={this.state.startDate}
+								/>
+					<DatePicker onChange={this.onEndDateSelected}
+								id="endDate"
+								type="date" 
+								placeholderText="end date..."
+								name="endDate" 
+								selected={this.state.endDate}
+								/>
 				</div>
 
 			</div>
