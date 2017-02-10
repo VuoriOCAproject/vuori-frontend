@@ -40,7 +40,7 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="Login">
+            <div id="b" className="Login">
             <div className="ui middle aligned center aligned grid">
                 <div className="column">
                   <form onSubmit={this.handleSubmit} className="ui large form">

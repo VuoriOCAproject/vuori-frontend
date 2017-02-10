@@ -43,14 +43,27 @@ body {
   width:25em;
 }
 .dateRange {
-  display: inline-flex;
+  display: inline-block;
   margin-top: 10px;
   width: 100%;
+  text-align: left;
 }
 #endDate {
   margin-left:1.5em;
 }
 #logoutButton {
   float:right;
-  margin-right:1em;
+}
+#b {
+  width: 80%;
+  margin: 0 auto;
+  padding: 18%;
+}
+#b input {
+  height:2.5em;
+  font-size:20px;
+}
+#b button {
+  height:2.5em;
+  font-size:20px;
 }
