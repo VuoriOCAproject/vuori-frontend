@@ -2,10 +2,9 @@ import React from 'react';
 import TableDropDown from './components/tableDropDown.js';
 import ColumnDropDown from './components/columnDropDown.js';
 import DatePicker from 'react-datepicker';
+import { logout } from '../../../../AuthService.js';
 
 require('react-datepicker/dist/react-datepicker.css');
-
-
 
 class Search extends React.Component {
 	constructor(props) {
@@ -123,6 +122,7 @@ class Search extends React.Component {
 				</div>
 				<div className="dateRange">
 					<DatePicker onChange={this.onStartDateSelected}
+								id="startDate"
 								type="date"
 								placeholderText="start date..."
 								name="startDate"
@@ -135,8 +135,8 @@ class Search extends React.Component {
 								name="endDate" 
 								selected={this.state.endDate}
 								/>
+					<button id="logoutButton" className="huge ui inverted red button" onClick={logout}>Log Out</button>
 				</div>
-
 			</div>
 		);
 	}
