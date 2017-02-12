@@ -72,7 +72,7 @@ class Manage extends React.Component {
 						}
 					}
 				} else {
-					let quotes = ['Query executed!', 'Will you query me?', 'Query executed!', 'Query me once... Shame on you.', 'Query executed!', 'Query executed!', 'Query executed!', 'Magical Query Tim, just magical!', 'John, was that one you? Not too shabby.', 'Query executed!', 'Query executed!', 'Great Query Tim! Keep at it!', 'At this rate, Vuori will be unstoppable!', 'Query executed!', 'Query executed!', 'Query executed!', 'On fire Tim, what a wonderful query!', 'Query executed!', 'Ooo, I love how you query me!'];
+					let quotes = ['Query executed!', 'Will you query me?', 'Query executed!', 'Query me once... Shame on you.', 'Query executed!', 'Query executed!', 'Query executed!', 'Magical Query Tim, just magical!', 'Query executed!', 'Query executed!', 'Great Query Tim! Keep at it!', 'At this rate, Vuori will be unstoppable!', 'Query executed!', 'Query executed!', 'Query executed!', 'On fire Tim, what a wonderful query!', 'Query executed!'];
 					let num = Math.floor(Math.random()*quotes.length);
 					this.refs.container.success(
 						`${quotes[num]}`,
@@ -81,12 +81,12 @@ class Manage extends React.Component {
 						extendedTimeOut: 1500
 					})
 				}
-			
+
 			})
 			.catch(error => {
 				this.refs.container.error(
-				`Can't win em all Tim. Try again!`,
-				'A Huge Trumpin\' Failure', {
+				`Try Again`,
+				'Bad Query', {
 					timeOut: 1000,
 					extendedTimeOut: 1500
 				})
@@ -118,9 +118,9 @@ class Manage extends React.Component {
 
 	addAlert () {
 		if(this.state.results) {
-			
+
 		} else {
-			
+
 		}
 	}
 
@@ -133,10 +133,10 @@ class Manage extends React.Component {
 				<header id="pageheader">Vuori <small>The Rise. The Shine.</small>
 				</header>
 				<div className="ui input error" id="a">
-					<Search 
-						schema={this.state.schema} 
-						onSearch={this.search} 
-						onTableSelected={this.onTableSelected} 
+					<Search
+						schema={this.state.schema}
+						onSearch={this.search}
+						onTableSelected={this.onTableSelected}
 						onColumnSelected={this.onColumnSelected}
 						onInputChange={this.onInputChange}
 						onDownload={this.exportCsv} />

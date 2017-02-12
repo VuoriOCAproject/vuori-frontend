@@ -57,7 +57,7 @@ class Search extends React.Component {
 			} else {
 				this.props.onSearch(`select * from tests.${this.state.selectedTable} where ${this.state.selectedColumn} = '${this.state.input}'`, 'build');
 			}
-		}	
+		}
 	}
 	onTableSelected(e) {
 		this.setState({
@@ -108,17 +108,17 @@ class Search extends React.Component {
 					<TableDropDown onTableSelected={this.onTableSelected} tables={this.props.schema.map(param => param.tableName)} />
 					<ColumnDropDown onColumnSelected={this.onColumnSelected} columns={columnValues} />
 					<button className="huge ui inverted red button SQLbuild" onClick={this.buildQuery}>Go!</button>
-					
+
 					{
 						this.state.selectedColumn !== 'All'
 							? (<input className="SQLbuild" name="input" value={this.state.value} onChange={this.handleChange} />)
 							: null
 					}
-					
+
 					<button className="huge ui inverted red button SQLsearch" onClick={this.searchQuery}>Run Query</button>
 					<input id="customInput" className="SQLsearch" placeholder="Enter custom SQL query..." name="sqlInput" value={this.state.value} onChange={this.handleChange} />
-					
-					<button className="huge ui inverted red button" id="download" onClick={this.props.onDownload}>Download as CSV</button>
+
+
 				</div>
 				<div className="dateRange">
 					<DatePicker onChange={this.onStartDateSelected}
@@ -130,12 +130,14 @@ class Search extends React.Component {
 								/>
 					<DatePicker onChange={this.onEndDateSelected}
 								id="endDate"
-								type="date" 
+								type="date"
 								placeholderText="end date..."
-								name="endDate" 
+								name="endDate"
 								selected={this.state.endDate}
 								/>
 					<button id="logoutButton" className="huge ui inverted red button" onClick={logout}>Log Out</button>
+					<button className="huge ui inverted red button" id="download" onClick={this.props.onDownload}>Download as CSV</button>
+
 				</div>
 			</div>
 		);
